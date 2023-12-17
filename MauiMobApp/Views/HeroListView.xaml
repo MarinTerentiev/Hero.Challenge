@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiMobApp.Views.HeroListView"
+             Title="Hero List View">
+    <Grid Padding="5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Label Text="Heroes:" HorizontalOptions="Start" VerticalOptions="Center"  Grid.Column="0" Grid.Row="0"  />
+        <Button Text="Add" HorizontalOptions="End" VerticalOptions="Center" Command="{Binding AddNeroCommand}" WidthRequest="100"
+                Grid.Column="1" Grid.Row="0"  />
+
+        <ListView x:Name="heroesListView" ItemsSource="{Binding HeroModels}"  Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" >
+            <ListView.Header>
+                <Grid BackgroundColor="#ddd">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Name" FontSize="16" Grid.Column="0" />
+                    <Label Text="Class" FontSize="16" Grid.Column="1" HorizontalTextAlignment="Start" />
+                </Grid>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Text="{Binding Name}" FontSize="16" Grid.Column="0"  HorizontalTextAlignment="Start"/>
+                            <Label Text="{Binding Class}" FontSize="16" Grid.Column="1" HorizontalTextAlignment="Start"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.Footer>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Button Text="Edit" WidthRequest="100" HorizontalOptions="Start"  Grid.Column="0"
+                            Command="{Binding EditNeroCommand}"
+                            CommandParameter="{Binding Source={x:Reference Name=heroesListView}}" />
+                    <Button Text="Remove" WidthRequest="100" HorizontalOptions="End"  Grid.Column="1"
+                            Command="{Binding RemoveNeroCommand}"
+                            CommandParameter="{Binding Source={x:Reference Name=heroesListView}}"  />
+                </Grid>
+            </ListView.Footer>
+        </ListView>
+        
+        <VerticalStackLayout Padding="5">
+            <ActivityIndicator Grid.Row="0" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"
+                               VerticalOptions="Center" HorizontalOptions="Center">
+                <ActivityIndicator.WidthRequest>
+                    <OnPlatform x:TypeArguments="x:Double">
+                        <On Platform="iOS, Android" Value="100" />
+                        <On Platform="WinUI" Value="400" />
+                    </OnPlatform>
+                </ActivityIndicator.WidthRequest>
+            </ActivityIndicator>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

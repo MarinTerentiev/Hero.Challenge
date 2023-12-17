@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiMobApp.Views.HeroAddView"
+             xmlns:common="clr-namespace:MauiMobApp.Common"
+             Title="Hero Add View">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <common:IntEnumConverter x:Key="IntEnum"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid Padding="5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <StackLayout Grid.Column="0" Grid.Row="0">
+            <Label Text="Name *" />
+            <Entry Text="{Binding Name}" MaxLength="20" FontSize="18" />
+        </StackLayout>
+        <StackLayout Grid.Column="0" Grid.Row="1">
+            <Label Text="Class *" />
+            <Entry Text="{Binding Class}" MaxLength="20" FontSize="18" />
+        </StackLayout>
+        <StackLayout Grid.Column="0" Grid.Row="2">
+            <Label Text="Story *" />
+            <Editor Text="{Binding Story}" HeightRequest="200" FontSize="18" />
+        </StackLayout>
+        <StackLayout Grid.Column="0" Grid.Row="3">
+            <Label Text="Weapon" />
+            <Picker ItemsSource="{Binding Weapons}" SelectedIndex="{Binding SelectedWeapon, Converter={StaticResource IntEnum}}"
+                    FontSize="18" />
+        </StackLayout>
+        <StackLayout Grid.Column="0" Grid.Row="4">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button Text="Back" WidthRequest="100" HorizontalOptions="Start"  Grid.Column="0"  Grid.Row="1"
+                    Command="{Binding BackCommand}" />
+                <Button Text="Save" WidthRequest="100" HorizontalOptions="End"  Grid.Column="1"  Grid.Row="1"
+                    Command="{Binding SaveNewNeroCommand}" />
+            </Grid>
+        </StackLayout>
+    </Grid>
+</ContentPage>
