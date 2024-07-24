@@ -16,10 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Common\Interfaces\" />
     <Folder Include="Common\Models\" />
-    <Folder Include="HeroComponent\Commands\" />
-    <Folder Include="HeroComponent\Queries\" />
   </ItemGroup>
 
 </Project>
