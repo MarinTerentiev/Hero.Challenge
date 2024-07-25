@@ -14,10 +14,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services
     .AddApplication()
-    .AddInfrastructure();
+    .AddInfrastructure(builder.Configuration);
 
-var cs = builder.Configuration.GetConnectionString("Default");
-builder.Services.AddDbContext<HeroEfDbContext>(opt => opt.UseSqlServer(cs));
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
