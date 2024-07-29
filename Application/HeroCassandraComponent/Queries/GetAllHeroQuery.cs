@@ -2,7 +2,7 @@
 using Domain.Entities;
 using MediatR;
 
-namespace Application.HeroComponent.Queries;
+namespace Application.HeroCassandraComponent.Queries;
 
 public record GetAllHeroQuery : IRequest<IEnumerable<Hero>>;
 

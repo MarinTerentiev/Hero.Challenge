@@ -3,15 +3,17 @@ using Cassandra;
 using Domain.Common;
 using Domain.Entities;
 using Domain.Enums;
+using Microsoft.Extensions.Options;
 
-namespace Infrastructure.Cassandra;
+namespace Infrastructure.CassandraRepository;
 
 public class CassandraNeroRepository : ICassandraNeroRepository
 {
     private readonly ISession _session;
 
-    public CassandraNeroRepository(CassandraSettings settings)
+    public CassandraNeroRepository(IOptions<CassandraSettings> options, CassandraSettings cassandraSettings)
     {
+        var settings = options.Value;
         var cluster = Cluster.Builder()
             .AddContactPoint(settings.ContactPoints)
             .WithPort(settings.Port)
@@ -23,11 +25,11 @@ public class CassandraNeroRepository : ICassandraNeroRepository
 
     public async Task AddAsync(Hero hero)
     {
-        var query = "INSERT INTO hero (name, class, story, weapon) VALUES (?, ?, ?, ?)";
-        await _session.ExecuteAsync(new SimpleStatement(query, hero.Name, hero.Class, hero.Story, hero.Weapon));
+        var query = "INSERT INTO hero (id, name, class, story, weapon) VALUES (?, ?, ?, ?, ?)";
+        await _session.ExecuteAsync(new SimpleStatement(query, hero.Id, hero.Name, hero.Class, hero.Story, (int)hero.Weapon));
     }
 
-    public async Task DeleteAsync(int id)
+    public async Task DeleteAsync(Guid id)
     {
         var query = "DELETE FROM hero WHERE id = ?";
         await _session.ExecuteAsync(new SimpleStatement(query, id));
@@ -43,7 +45,7 @@ public class CassandraNeroRepository : ICassandraNeroRepository
         return ret;
     }
 
-    public async Task<Hero?> GetByIdAsync(int id)
+    public async Task<Hero?> GetByIdAsync(Guid id)
     {
         var query = "SELECT * FROM hero WHERE id = ?";
         var result = await _session.ExecuteAsync(new SimpleStatement(query, id));
@@ -61,19 +63,19 @@ public class CassandraNeroRepository : ICassandraNeroRepository
 
     public async Task UpdateAsync(Hero hero)
     {
-        var query = "UPDATE hero name = ?, class = ?, story = ?, weapon = ? WHERE id = ?";
-        await _session.ExecuteAsync(new SimpleStatement(query, hero.Name, hero.Class, hero.Story, hero.Weapon, hero.Id));
+        var query = "UPDATE hero SET name = ?, class = ?, story = ?, weapon = ? WHERE id = ?";
+        await _session.ExecuteAsync(new SimpleStatement(query, hero.Name, hero.Class, hero.Story, (int)hero.Weapon, hero.Id));
     }
 
     private Hero CreateNero(Row row)
     {
         var ret = new Hero
         {
-            Id = row.GetValue<int>("id"),
+            Id = row.GetValue<Guid>("id"),
             Name = row.GetValue<string>("name"),
             Class = row.GetValue<string>("class"),
             Story = row.GetValue<string>("story"),
-            Weapon = Enum.TryParse(row.GetValue<string>("weapon"), out Weapon myWeapon) ? myWeapon : null
+            Weapon = Enum.TryParse(row.GetValue<int>("weapon").ToString(), out Weapon myWeapon) ? myWeapon : Weapon.None,
         };
 
         return ret;

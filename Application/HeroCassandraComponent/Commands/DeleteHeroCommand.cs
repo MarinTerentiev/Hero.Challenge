@@ -1,11 +1,11 @@
 ﻿using Application.Common.Interfaces;
 using MediatR;
 
-namespace Application.HeroComponent.Commands;
+namespace Application.HeroCassandraComponent.Commands;
 
 public record DeleteHeroCommand : IRequest
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
 }
 
 public class DeleteHeroCommandHandler : IRequestHandler<DeleteHeroCommand>
@@ -22,4 +22,3 @@ public class DeleteHeroCommandHandler : IRequestHandler<DeleteHeroCommand>
         await _repository.DeleteAsync(request.Id);
     }
 }
-

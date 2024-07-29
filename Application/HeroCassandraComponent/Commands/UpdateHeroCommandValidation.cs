@@ -1,6 +1,7 @@
-﻿using FluentValidation;
+﻿using Domain.Enums;
+using FluentValidation;
 
-namespace Application.HeroComponent.Commands
+namespace Application.HeroCassandraComponent.Commands
 {
     public class UpdateHeroCommandValidation : AbstractValidator<UpdateHeroCommand>
     {
@@ -8,6 +9,7 @@ namespace Application.HeroComponent.Commands
         {
 
             RuleFor(x => x.Hero.Name).MaximumLength(50).NotEmpty();
+            RuleFor(x => x.Hero.Weapon).Must(x => Enum.IsDefined(typeof(Weapon), x)).WithMessage("Invalid weapon value.");
         }
     }
 }

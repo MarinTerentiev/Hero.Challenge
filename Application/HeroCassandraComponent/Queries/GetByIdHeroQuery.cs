@@ -2,11 +2,11 @@
 using Domain.Entities;
 using MediatR;
 
-namespace Application.HeroComponent.Queries;
+namespace Application.HeroCassandraComponent.Queries;
 
 public record GetByIdHeroQuery : IRequest<Hero?>
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
 }
 
 public class GetByIdHeroQueryHandler : IRequestHandler<GetByIdHeroQuery, Hero?>

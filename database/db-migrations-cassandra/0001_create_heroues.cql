@@ -3,9 +3,9 @@ CREATE KEYSPACE IF NOT EXISTS herochallenge WITH REPLICATION = { 'class' : 'Simp
 
 -- Create Table
 CREATE TABLE IF NOT EXISTS herochallenge.hero (
-    id int PRIMARY KEY,
+    id uuid PRIMARY KEY,
     name text,
     class text,
     story text,
-    weapon text
+    weapon int
 );

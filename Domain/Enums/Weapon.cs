@@ -2,7 +2,8 @@
 
 public enum Weapon
 {
-    Sword,
-    Spear,
-    Bow
+    None = 0,
+    Sword = 1,
+    Spear = 2,
+    Bow = 3
 }

@@ -2,14 +2,14 @@
 using Domain.Entities;
 using MediatR;
 
-namespace Application.HeroComponent.Commands;
+namespace Application.HeroCassandraComponent.Commands;
 
-public record AddHeroCommand : IRequest
+public record AddHeroCommand : IRequest<Guid>
 {
     public required Hero Hero { get; set; }
 }
 
-public class AddHeroCommandHandler : IRequestHandler<AddHeroCommand>
+public class AddHeroCommandHandler : IRequestHandler<AddHeroCommand, Guid>
 {
     private readonly ICassandraNeroRepository _repository;
 
@@ -18,8 +18,10 @@ public class AddHeroCommandHandler : IRequestHandler<AddHeroCommand>
         _repository = repository;
     }
 
-    public async Task Handle(AddHeroCommand request, CancellationToken cancellationToken)
+    public async Task<Guid> Handle(AddHeroCommand request, CancellationToken cancellationToken)
     {
+        request.Hero.Id = Guid.NewGuid();
         await _repository.AddAsync(request.Hero);
+        return request.Hero.Id;
     }
 }

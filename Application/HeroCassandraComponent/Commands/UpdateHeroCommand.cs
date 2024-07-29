@@ -2,7 +2,7 @@
 using Domain.Entities;
 using MediatR;
 
-namespace Application.HeroComponent.Commands;
+namespace Application.HeroCassandraComponent.Commands;
 
 public record UpdateHeroCommand : IRequest
 {

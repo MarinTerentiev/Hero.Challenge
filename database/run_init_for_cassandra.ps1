@@ -1,0 +1,2 @@
+$fullPath = (Resolve-Path "database/db-seed-cassandra/init.cql").Path
+docker run --rm --network hero-challenge -v "$($fullPath):/scripts/data.cql" -e CQLSH_HOST=$($containerName) -e CQLSH_PORT=$($port) -e CQLVERSION=3.4.6 nuvo/docker-cqlsh
