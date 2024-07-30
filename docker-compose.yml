@@ -1,0 +1,58 @@
+version: "3.8"
+
+services:
+    cassandra:
+        image: cassandra:latest
+        container_name: cassandra
+        ports:
+            - "9042:9042"
+        environment:
+            CASSANDRA_CLUSTER_NAME: "Test Cluster"
+            CASSANDRA_ENDPOINT_SNITCH: GossipingPropertyFileSnitch
+        networks:
+            - hero-challenge
+    
+    postgres:
+        image: postgres:latest
+        container_name: postgres
+        ports:
+            - "5432:5432"
+        environment:
+            POSTGRES_DB: "herochallenge"
+            POSTGRES_USER: "testuser"
+            POSTGRES_PASSWORD: "testpassword"
+        networks:
+            - hero-challenge
+
+    rabbitmq:
+        image: rabbitmq:3-management
+        container_name: rabbitmq
+        ports:
+            - "5672:5672"
+            - "15672:15672"
+        environment:
+            RABBITMQ_DEFAULT_USER: "guest"
+            RABBITMQ_DEFAULT_PASS: "guest"
+        networks:
+            - hero-challenge
+
+    seq:
+        image: datalust/seq:latest
+        container_name: seq
+        ports:
+            - 5341:5341
+        environment:
+            ACCEPT_EULA: "Y"
+            SEQ_USERNAME: "admin"
+            SEQ_PASSWORD: "password"
+        networks:
+          - hero-challenge
+
+
+volumes:
+    postgres_data:
+
+networks:
+    default:
+        driver: brodge
+        name: hero-challenge

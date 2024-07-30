@@ -39,7 +39,7 @@ public static class DependencyInjection
             return session;
         });
 
-        services.AddSingleton<ICassandraNeroRepository, CassandraNeroRepository>();
+        services.AddSingleton<ICassandraNeroRepository, CassandraNeroMapperRepository>();
 
         return services;
     }
