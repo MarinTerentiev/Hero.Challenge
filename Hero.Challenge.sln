@@ -21,15 +21,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI", "API\WebAPI.csproj
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solutionItems", "solutionItems", "{AFDDDF5F-07D5-4184-859F-615695908867}"
 	ProjectSection(SolutionItems) = preProject
+		..\..\..\Загрузки\Cassandra Connection.png = ..\..\..\Загрузки\Cassandra Connection.png
+		docker-compose.yml = docker-compose.yml
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B84006CE-8725-400C-B170-4DFCA53DCE48}"
-	ProjectSection(SolutionItems) = preProject
-		docker-compose.yml = docker-compose.yml
-	EndProjectSection
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Receiver", "Receiver\Receiver.csproj", "{6E90146B-30FC-4AD0-8ABD-0BF6C8813481}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeroTestUnit", "..\..\Hero.Challenge\Hero.Challenge\HeroTestUnit\HeroTestUnit.csproj", "{EE48A435-9D2B-4F42-83F7-A16415D628BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeroTestUnit", "HeroTestUnit\HeroTestUnit.csproj", "{A6F50B26-D42D-42B4-B60B-1E71B3C1614F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,10 +58,14 @@ Global
 		{3EC0E738-5FA6-4DDB-85DA-5AA765EB286C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3EC0E738-5FA6-4DDB-85DA-5AA765EB286C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3EC0E738-5FA6-4DDB-85DA-5AA765EB286C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EE48A435-9D2B-4F42-83F7-A16415D628BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EE48A435-9D2B-4F42-83F7-A16415D628BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EE48A435-9D2B-4F42-83F7-A16415D628BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EE48A435-9D2B-4F42-83F7-A16415D628BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E90146B-30FC-4AD0-8ABD-0BF6C8813481}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E90146B-30FC-4AD0-8ABD-0BF6C8813481}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E90146B-30FC-4AD0-8ABD-0BF6C8813481}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E90146B-30FC-4AD0-8ABD-0BF6C8813481}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6F50B26-D42D-42B4-B60B-1E71B3C1614F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6F50B26-D42D-42B4-B60B-1E71B3C1614F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6F50B26-D42D-42B4-B60B-1E71B3C1614F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6F50B26-D42D-42B4-B60B-1E71B3C1614F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,7 +77,8 @@ Global
 		{1A5DD394-A8E1-4D25-9715-4D3A352A7CAB} = {54B9EF60-25C8-4789-9278-45A79696D20C}
 		{F0217E0D-0B3A-439F-B3E3-6B3142703819} = {54B9EF60-25C8-4789-9278-45A79696D20C}
 		{3EC0E738-5FA6-4DDB-85DA-5AA765EB286C} = {54B9EF60-25C8-4789-9278-45A79696D20C}
-		{EE48A435-9D2B-4F42-83F7-A16415D628BB} = {FB0C963D-63E3-4066-BEA7-25F351982FDF}
+		{6E90146B-30FC-4AD0-8ABD-0BF6C8813481} = {54B9EF60-25C8-4789-9278-45A79696D20C}
+		{A6F50B26-D42D-42B4-B60B-1E71B3C1614F} = {FB0C963D-63E3-4066-BEA7-25F351982FDF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {21BCB3D7-081E-48D4-AEFF-6E79B5022591}

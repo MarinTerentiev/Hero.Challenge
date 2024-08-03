@@ -83,7 +83,7 @@ public class HeroCassandraControllerTests
         // Assert
         var createdAtActionResult = Assert.IsType<CreatedAtActionResult>(result);
         var returnValue = createdAtActionResult.Value;
-        var returnHeroIdProperty = returnValue?.GetType().GetProperty("id");
+        var returnHeroIdProperty = returnValue?.GetType().GetProperty("Id");
         Assert.NotNull(returnHeroIdProperty);
 
         var returnHeroId = (Guid?)returnHeroIdProperty?.GetValue(returnValue);
@@ -132,5 +132,4 @@ public class HeroCassandraControllerTests
         // Assert
         Assert.IsType<NoContentResult>(result);
     }
-
 }

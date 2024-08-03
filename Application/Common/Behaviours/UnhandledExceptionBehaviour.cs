@@ -12,6 +12,7 @@ public class UnhandledExceptionBehaviour<TRequest, TResponse> : IPipelineBehavio
         catch (Exception ex)
         {
             var requestName = typeof(TRequest).Name;
+            var error = $"Request: Unhandled Exception for Request {requestName} {requestName}";
 
             //TODO add Log
 

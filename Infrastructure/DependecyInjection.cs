@@ -19,6 +19,7 @@ public static class DependencyInjection
 
         //for CassandraNeroRepository
         services.Configure<CassandraSettings>(opt => configuration.GetSection("CassandraSettings").Bind(opt));
+
         //for CassandraNeroMapperRepository
         var cassandraSettings = new CassandraSettings();
         configuration.GetSection("CassandraSettings").Bind(cassandraSettings);
