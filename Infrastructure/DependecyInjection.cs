@@ -7,6 +7,7 @@ using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Infrastructure.PostgresRepository;
 
 namespace Infrastructure;
 
@@ -41,6 +42,9 @@ public static class DependencyInjection
         });
 
         services.AddSingleton<ICassandraNeroRepository, CassandraNeroMapperRepository>();
+
+        services.Configure<PostgresSettings>(configuration.GetSection("PostgresSettings"));
+        services.AddSingleton<IPostgressHeroImportRepository, PostgressHeroImportRepository>();
 
         return services;
     }

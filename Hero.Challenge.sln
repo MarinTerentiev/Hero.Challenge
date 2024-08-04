@@ -21,8 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI", "API\WebAPI.csproj
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solutionItems", "solutionItems", "{AFDDDF5F-07D5-4184-859F-615695908867}"
 	ProjectSection(SolutionItems) = preProject
-		..\..\..\Загрузки\Cassandra Connection.png = ..\..\..\Загрузки\Cassandra Connection.png
+		Cassandra Connection.png = Cassandra Connection.png
 		docker-compose.yml = docker-compose.yml
+		Postgres Connection.png = Postgres Connection.png
 		README.md = README.md
 	EndProjectSection
 EndProject
