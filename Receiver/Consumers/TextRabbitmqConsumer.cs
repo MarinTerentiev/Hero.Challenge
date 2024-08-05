@@ -5,9 +5,9 @@ namespace Receiver.Consumers;
 
 public class TextRabbitmqConsumer : BaseRabbitmqConsumer
 {
-    public TextRabbitmqConsumer(IOptions<RabbitmqSettings> options) : base(options, RabbitmqQueues.TextQueur)
+    public TextRabbitmqConsumer(IOptions<RabbitmqSettings> options, ILogger<TextRabbitmqConsumer> logger)
+        : base(options, RabbitmqQueues.TextQueur, logger)
     {
-
     }
 
     protected override async Task<bool> HandleMessageAsync(string message, CancellationToken stoppingToken)

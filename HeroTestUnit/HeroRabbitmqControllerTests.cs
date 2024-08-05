@@ -4,6 +4,7 @@ using Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Moq;
 using System.Text;
 using WebAPI.Controllers;
@@ -16,13 +17,15 @@ public class HeroRabbitmqControllerTests
     private readonly Mock<ITextPublisher> _textPublisherMock;
     private readonly HeroRabbitmqController _controller;
     private readonly Mock<IMediator> _mediatorMock;
+    private readonly Mock<ILogger<HeroRabbitmqController>> _logger;
 
     public HeroRabbitmqControllerTests()
     {
         _heroPublisherMock = new Mock<IHeroPublisher>();
         _textPublisherMock = new Mock<ITextPublisher>();
         _mediatorMock = new Mock<IMediator>();
-        _controller = new HeroRabbitmqController(_heroPublisherMock.Object, _textPublisherMock.Object, _mediatorMock.Object);
+        _logger = new Mock<ILogger<HeroRabbitmqController>>();
+        _controller = new HeroRabbitmqController(_heroPublisherMock.Object, _textPublisherMock.Object, _mediatorMock.Object, _logger.Object);
     }
 
     [Fact]

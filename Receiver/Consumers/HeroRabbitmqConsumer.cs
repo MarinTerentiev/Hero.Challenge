@@ -10,12 +10,15 @@ public class HeroRabbitmqConsumer : BaseRabbitmqConsumer
 {
     private readonly HttpClient _httpClient;
     private readonly string _baseUrl;
+    private readonly ILogger<HeroRabbitmqConsumer> _logger;
 
-    public HeroRabbitmqConsumer(IOptions<RabbitmqSettings> options, IOptions<BaseApiSettings> apiOptions, HttpClient httpClient)
-        : base(options, RabbitmqQueues.HeroUploadQueur)
+    public HeroRabbitmqConsumer(IOptions<RabbitmqSettings> options, IOptions<BaseApiSettings> apiOptions, HttpClient httpClient,
+        ILogger<HeroRabbitmqConsumer> logger)
+        : base(options, RabbitmqQueues.HeroUploadQueur, logger)
     {
         _httpClient = httpClient;
         _baseUrl = apiOptions.Value.Url.ToString();
+        _logger = logger;
     }
 
     protected override async Task<bool> HandleMessageAsync(string message, CancellationToken stoppingToken)
@@ -33,6 +36,8 @@ public class HeroRabbitmqConsumer : BaseRabbitmqConsumer
         catch (Exception ex)
         {
             var error = $"Error processing message: {ex.Message}";
+            _logger.LogError(ex, error);
+
             return false;
         }
     }

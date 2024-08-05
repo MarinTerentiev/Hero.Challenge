@@ -1,6 +1,7 @@
 ﻿using Domain.Common;
 using Domain.Entities;
 using Domain.Enums;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;
 using Moq.Protected;
@@ -17,6 +18,7 @@ public class HeroRabbitmqConsumerTests
     private readonly Mock<IOptions<BaseApiSettings>> _mockApiOptions;
     private readonly Mock<HttpMessageHandler> _mockHttpMessageHandler;
     private readonly HttpClient _httpClient;
+    private readonly Mock<ILogger<HeroRabbitmqConsumer>> _logger;
 
     public HeroRabbitmqConsumerTests()
     {
@@ -24,6 +26,7 @@ public class HeroRabbitmqConsumerTests
         _mockApiOptions = new Mock<IOptions<BaseApiSettings>>();
         _mockHttpMessageHandler = new Mock<HttpMessageHandler>();
         _httpClient = new HttpClient(_mockHttpMessageHandler.Object);
+        _logger = new Mock<ILogger<HeroRabbitmqConsumer>>();
 
         _mockRabbitmqOptions.Setup(x => x.Value).Returns(new RabbitmqSettings { ConnectionStrings = "amqp://localhost" });
         _mockApiOptions.Setup(x => x.Value).Returns(new BaseApiSettings { Url = "http://localhost/" });
@@ -44,7 +47,7 @@ public class HeroRabbitmqConsumerTests
                 ItExpr.IsAny<CancellationToken>())
             .ReturnsAsync(new HttpResponseMessage(HttpStatusCode.OK));
 
-        var consumer = new HeroRabbitmqConsumer(_mockRabbitmqOptions.Object, _mockApiOptions.Object, _httpClient);
+        var consumer = new HeroRabbitmqConsumer(_mockRabbitmqOptions.Object, _mockApiOptions.Object, _httpClient, _logger.Object);
 
         // Act
         var result = await consumer.TestHandleMessageAsync(heroJson, CancellationToken.None);
@@ -58,7 +61,7 @@ public class HeroRabbitmqConsumerTests
     {
         // Arrange
         var heroJson = "{\"InvalidJson\": \"This will fail deserialization\"}";
-        var consumer = new HeroRabbitmqConsumer(_mockRabbitmqOptions.Object, _mockApiOptions.Object, _httpClient);
+        var consumer = new HeroRabbitmqConsumer(_mockRabbitmqOptions.Object, _mockApiOptions.Object, _httpClient, _logger.Object);
 
         // Act
         var result = await consumer.TestHandleMessageAsync(heroJson, CancellationToken.None);
@@ -82,7 +85,7 @@ public class HeroRabbitmqConsumerTests
                 ItExpr.IsAny<CancellationToken>())
             .ReturnsAsync(new HttpResponseMessage(HttpStatusCode.BadRequest));
 
-        var consumer = new HeroRabbitmqConsumer(_mockRabbitmqOptions.Object, _mockApiOptions.Object, _httpClient);
+        var consumer = new HeroRabbitmqConsumer(_mockRabbitmqOptions.Object, _mockApiOptions.Object, _httpClient, _logger.Object);
 
         // Act
         var result = await consumer.TestHandleMessageAsync(heroJson, CancellationToken.None);

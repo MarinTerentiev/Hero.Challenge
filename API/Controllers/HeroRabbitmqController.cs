@@ -1,5 +1,4 @@
-﻿using Application.HeroCassandraComponent.Queries;
-using Application.HeroImportPostgressComponent.Commands;
+﻿using Application.HeroImportPostgressComponent.Commands;
 using Application.HeroImportPostgressComponent.Queries;
 using Application.RabbitmqPublisher;
 using Domain.Entities;
@@ -18,12 +17,15 @@ public class HeroRabbitmqController : ApiControllerBase
     private readonly IHeroPublisher _messagePublisher;
     private readonly ITextPublisher _textPublisher;
     private readonly IMediator _mediator;
+    private readonly ILogger<HeroRabbitmqController> _logger;
 
-    public HeroRabbitmqController(IHeroPublisher messagePublisher, ITextPublisher textPublisher, IMediator mediator)
+    public HeroRabbitmqController(IHeroPublisher messagePublisher, ITextPublisher textPublisher, IMediator mediator,
+        ILogger<HeroRabbitmqController> logger)
     {
         _messagePublisher = messagePublisher;
         _textPublisher = textPublisher;
         _mediator = mediator;
+        _logger = logger;
     }
 
     [HttpGet]
@@ -97,7 +99,7 @@ public class HeroRabbitmqController : ApiControllerBase
                     {
                         var data = string.Join(",", fields);
                         var error = $"Failed to parse row {i} for seedid {seedId} for {data}, exception {ex.Message}";
-                        //TODO add log
+                        _logger.LogError(ex, error);
 
                         failedRows.Add(i);
                     }

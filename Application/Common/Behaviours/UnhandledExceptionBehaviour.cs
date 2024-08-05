@@ -1,8 +1,16 @@
 ﻿using MediatR;
+using Microsoft.Extensions.Logging;
 namespace Application.Common.Behaviours;
 
 public class UnhandledExceptionBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : notnull
 {
+    private readonly ILogger<TRequest> _logger;
+
+    public UnhandledExceptionBehaviour(ILogger<TRequest> logger)
+    {
+        _logger = logger;
+    }
+
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
         try
@@ -12,9 +20,8 @@ public class UnhandledExceptionBehaviour<TRequest, TResponse> : IPipelineBehavio
         catch (Exception ex)
         {
             var requestName = typeof(TRequest).Name;
-            var error = $"Request: Unhandled Exception for Request {requestName} {requestName}";
-
-            //TODO add Log
+            var error = $"Request: Unhandled Exception for Request {requestName}";
+            _logger.LogError(ex, error);
 
             throw;
         }

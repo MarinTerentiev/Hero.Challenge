@@ -14,8 +14,9 @@ public abstract class BaseRabbitmqConsumer : BackgroundService
     private readonly RabbitmqSettings _rabbitmqSettings;
     private IConnection? _connection;
     private IModel? _channel;
+    private readonly ILogger<BaseRabbitmqConsumer> _logger;
 
-    public BaseRabbitmqConsumer(IOptions<RabbitmqSettings> options, string queueName)
+    public BaseRabbitmqConsumer(IOptions<RabbitmqSettings> options, string queueName, ILogger<BaseRabbitmqConsumer> logger)
     {
         _rabbitmqSettings = options.Value;
         _queueName = queueName;
@@ -23,6 +24,7 @@ public abstract class BaseRabbitmqConsumer : BackgroundService
         _rountingName = $"{queueName}Rout";
 
         InitConsumerService();
+        _logger = logger;
     }
 
     private void InitConsumerService()
@@ -60,7 +62,7 @@ public abstract class BaseRabbitmqConsumer : BackgroundService
             catch (Exception ex)
             {
                 var error = $"Exception occurred while processing message from queue {_queueName}: {ex}";
-                //TODO log data
+                _logger.LogError(ex, error);
             }
 
             if (processedSuccessfully)

@@ -18,7 +18,7 @@ public class HeroCassandraController : ApiControllerBase
         _mediator = mediator;
     }
 
-    [HttpGet("HealthCheck")]
+    [HttpGet("healthcheck")]
     public ActionResult<string> HealthCheck()
     {
         return "Health Check";

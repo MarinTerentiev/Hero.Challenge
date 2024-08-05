@@ -41,10 +41,9 @@ services:
         container_name: seq
         ports:
             - 5341:5341
+            - 8081:80
         environment:
             ACCEPT_EULA: "Y"
-            SEQ_USERNAME: "admin"
-            SEQ_PASSWORD: "password"
         networks:
           - hero-challenge
 
@@ -53,6 +52,6 @@ volumes:
     postgres_data:
 
 networks:
-    default:
-        driver: brodge
+    hero-challenge:
+        driver: bridge
         name: hero-challenge

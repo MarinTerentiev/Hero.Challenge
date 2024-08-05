@@ -31,3 +31,10 @@ Postgres
 		- Download and install DBeaver
 		- Complite connection tab (see Postgres Connection.png)
 
+Seq
+	Url:		http://localhost:8081/
+
+RabbitMQ
+	Url:		http://localhost:15672/
+	Username:	"guest"
+	Password:	"guest"
